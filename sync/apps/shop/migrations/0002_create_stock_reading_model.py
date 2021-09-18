@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             name='StockReading',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(blank=True, max_length=255, null=True)),
+                ('name', models.CharField(max_length=255)),
                 ('GTIN', models.CharField(max_length=14, unique=True)),
                 ('expiry_date', models.DateField()),
                 (

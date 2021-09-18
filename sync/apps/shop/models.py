@@ -20,10 +20,10 @@ class StockReading(models.Model):
     But for simplicity, we are treating both tables as one.
     '''
 
-    name = models.CharField(max_length=255, blank=True, null=True)
+    name = models.CharField(max_length=255)
     GTIN = models.CharField(max_length=14, unique=True)
     shop = models.ForeignKey('shop.Shop', on_delete=models.CASCADE, related_name='stock_readings')
     expiry_date = models.DateField()
 
     def __str__(self):
-        return f'{self.name}({self.GTIN})'
+        return f'{self.name} (GTIN:{self.GTIN})'
