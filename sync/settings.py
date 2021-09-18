@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     # 3rd party libs:
     "rest_framework",
     "drf_yasg",
+    # local apps:
+    "sync.apps.shop",
 ]
 
 MIDDLEWARE = [
