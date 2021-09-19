@@ -1,4 +1,5 @@
 from django.db import transaction
+from django.utils.dateparse import parse_date
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
@@ -35,6 +36,14 @@ class StockReadingViewSet(ModelViewSet):
             # Lock row using select_for update, but actually use the instance from get_object
             StockReading.objects.select_for_update().get(pk=kwargs['pk'])
             instance = self.get_object()
+            # Make sure expiry_date is modified ONLY if it is more recent than the original date
+            try:
+                new_expiry_date = parse_date(request.data.get('expiry_date'))
+            except ValueError:
+                new_expiry_date = None
+
+            if new_expiry_date and instance.expiry_date <= new_expiry_date:
+                request.data['expiry_date'] = instance.expiry_date
 
             serializer = self.get_serializer(instance, data=request.data, partial=partial)
             serializer.is_valid(raise_exception=True)
