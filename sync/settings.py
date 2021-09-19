@@ -92,7 +92,7 @@ DATABASES = {
         "PASSWORD": os.environ.get("DATABASE_PASSWORD"),
         "HOST": "localhost",
         "PORT": "5432",
-        "CONN_MAX_AGE" : 60,
+        "CONN_MAX_AGE": 60,
     }
 }
 
