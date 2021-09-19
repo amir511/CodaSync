@@ -1,11 +1,44 @@
 # CodaSync
 
-## Local Installation
+## Local Installation steps
+
+### Clone the git repository
+`git clone https://github.com/amir511/CodaSync.git`
+
+### Create virtual environment and activate it
+`python3 -m venv venv`
+
+`source venv/bin/activate`
+
+### Install requirements
+
+`pip install -r requirements.txt`
+
 ### Create Postgresql database locally
 
 `CREATE ROLE codabene WITH PASSWORD '1234' LOGIN;`
 
 `CREATE DATABASE codasync OWNER codabene;`
+
+You can change the database name, the role name and the password to whatever you choose.
+
+### Create a `.env` file
+`touch .env`
+Add these parameters to the file, and make sure to add the correct values, here are some examples:
+```
+DEBUG=True
+SECRET_KEY=django-insecure-(b8mp$l%yqf=b%(haz1spo!be0lz!2-=0=au51n@(r@q0dr!3s
+DATABASE_PASSWORD=1234
+DATABASE_USER=codabene
+```
+### Migrate the database
+
+`python manage.py migrate`
+
+### Run the development server
+
+`python manage.py runserver`
+
 
 ## Design choices
 Since the `StockReading` model is expected to be updated by many users at the same time, and there is also a high probability of updating the same product at the same time (Multiple requests to modify the same database row at the same time), this will result in a race condition rendering the database in an inconsistent state.
